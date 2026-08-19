@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bellringers — Start class strong. Fill the weird five minutes.</title>
+<meta name="description" content="Fun, engaging ways to start class, fill awkward transition times, and get students thinking fast. No downloads. No prep. No login.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔔</text></svg>">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a class="brand" href="#/" aria-label="Bellringers home">
+    <span class="brand-bell" aria-hidden="true">🔔</span>
+    <span class="brand-word">Bellringers</span>
+  </a>
+  <nav class="site-nav" aria-label="Main">
+    <a href="#/" data-nav="home">Home</a>
+    <a href="#/library" data-nav="library">Activity Library</a>
+    <a href="#/bellringer-mode" data-nav="bellringer-mode">Bellringer Mode</a>
+    <a href="#/favorites" data-nav="favorites">Favorites <span class="heart" aria-hidden="true">♡</span><span class="fav-count" id="navFavCount" hidden></span></a>
+  </nav>
+  <div class="header-right">
+    <span class="no-login" title="Favorites are stored in this browser. Nothing is sent anywhere.">No login. Ever.</span>
+  </div>
+</header>
+
+<main id="view"></main>
+
+<!-- ───────────────────────── PROJECTOR PLAYER ───────────────────────── -->
+<div class="player" id="player" hidden aria-modal="true" role="dialog" aria-label="Activity display">
+  <div class="player-stage" id="playerStage"></div>
+
+  <div class="player-seq" id="playerSeq" hidden></div>
+
+  <div class="player-bar">
+    <div class="player-bar-left">
+      <button class="pbtn pbtn-exit" id="btnExit" title="Close (Esc)">✕</button>
+      <span class="player-title" id="playerTitle"></span>
+    </div>
+    <div class="player-bar-right">
+      <button class="pbtn pbtn-reveal" id="btnReveal" hidden>Reveal <kbd>R</kbd></button>
+      <button class="pbtn pbtn-primary" id="btnNext">Next <kbd>→</kbd></button>
+      <button class="pbtn" id="btnTimer">Timer <kbd>T</kbd></button>
+      <button class="pbtn" id="btnRandom" title="Jump to a random Bellringer">Randomize</button>
+      <button class="pbtn" id="btnFull">⤢ Full Screen <kbd>F</kbd></button>
+      <button class="pbtn" id="btnNotes">Teacher Notes <kbd>N</kbd></button>
+    </div>
+  </div>
+
+  <div class="timer-chip" id="timerChip" hidden>
+    <span class="timer-clock" id="timerClock">0:00</span>
+    <button class="timer-x" id="timerStop" title="Stop timer">✕</button>
+  </div>
+
+  <div class="notes-panel" id="notesPanel" hidden>
+    <button class="notes-close" id="notesClose">✕</button>
+    <div id="notesBody"></div>
+  </div>
+</div>
+
+<script src="js/formats.js"></script>
+<script src="js/decks.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
