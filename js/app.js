@@ -93,7 +93,7 @@ function renderStage(deck, prompt, rv = 0){
       rest = `
         <div class="quad">
           ${prompt.items.map((it, i) => `
-            <div class="quad-item">
+            <div class="quad-item${it.icon ? "" : " no-icon"}">
               <div class="quad-num">${i + 1}</div>
               ${it.icon ? `<div class="quad-icon">${it.icon}</div>` : ""}
               <div class="quad-label">${esc(it.label)}</div>
@@ -163,7 +163,7 @@ function renderStage(deck, prompt, rv = 0){
       const scales = [8, 4.2, 2.1, 1, 1];
       band = `<div class="stage-big">${rv >= 4 ? "It was…" : "What are you looking at?"}</div>`;
       rest = `
-        <div class="zoom-frame"><div class="zoom-emoji" style="transform:scale(${scales[Math.min(rv, 4)]})">${prompt.icon}</div></div>
+        <div class="zoom-frame${rv >= 4 ? " revealed" : ""}"><div class="zoom-emoji" style="transform:scale(${scales[Math.min(rv, 4)]})">${prompt.icon}</div></div>
         ${rv >= 4
           ? `<div class="answer-box">${esc(prompt.answer)}</div>`
           : `<div class="zoom-steps">Zoom ${rv + 1} of 4 &nbsp;·&nbsp; guess now, wrong guesses are free</div>`}`;
@@ -224,7 +224,7 @@ function paintPlayer(){
   const f = FORMATS[deck.format];
   $("#playerStage").innerHTML = renderStage(deck, prompt, P.rv);
   $("#playerTitle").textContent = `${deck.title} · ${P.idx + 1} of ${deck.prompts.length}`;
-  $("#playerDirection").innerHTML = f.direction || "";
+  $("#playerDirection").innerHTML = f.direction ? `<span class="pd-text">${f.direction}</span>` : "";
   $("#playerChips").innerHTML =
     `<span class="pchip pchip-time">🕐 ${deck.minutes} min</span>` +
     `<span class="pchip pchip-energy e-${deck.energy}">⚡ ${deck.energy[0].toUpperCase() + deck.energy.slice(1)} energy</span>`;

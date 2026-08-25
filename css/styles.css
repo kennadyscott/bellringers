@@ -350,11 +350,11 @@ h1,h2,h3,h4{ font-family:var(--display); margin:0; letter-spacing:-.02em; }
 .player-mark .brand-word{ font-size:23px; }
 
 .deco{ position:absolute; pointer-events:none; z-index:0; }
-.deco-loop{ top:14px; right:26px; width:180px; color:#BFE3E0; }
-.deco-squiggle{ bottom:104px; left:22px; width:140px; color:#BFE3E0; }
+.deco-loop{ top:16px; right:30px; width:170px; color:#CDE7E4; }
+.deco-squiggle{ bottom:168px; left:18px; width:112px; color:#CDE7E4; }
 
 .player-stage{
-  flex:1; display:grid; place-items:center; padding:6vh 5vw 1vh;
+  flex:1; display:grid; place-items:center; padding:4vh 5vw 1vh;
   text-align:center; overflow:auto; position:relative; z-index:1;
 }
 
@@ -370,6 +370,7 @@ h1,h2,h3,h4{ font-family:var(--display); margin:0; letter-spacing:-.02em; }
   font-size:clamp(14px,1.5vw,20px); line-height:1.35; text-align:left;
 }
 .player-direction::before{ content:"🗣"; font-size:1.1em; opacity:.5; flex:0 0 auto; }
+.pd-text{ flex:1; }
 .player-direction em{ font-style:normal; border-bottom:3px solid #CBB8F2; padding-bottom:1px; }
 .player-chips{ display:flex; gap:10px; flex-wrap:wrap; }
 .pchip{
@@ -497,7 +498,8 @@ h1,h2,h3,h4{ font-family:var(--display); margin:0; letter-spacing:-.02em; }
 .quad{ display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(10px,1.6vw,22px); }
 .quad-item{
   border-radius:20px; padding:clamp(16px,2.4vw,30px) 12px;
-  display:grid; gap:10px; place-items:center; position:relative;
+  display:grid; gap:10px; place-items:center; align-content:center; position:relative;
+  min-height:clamp(104px,14vw,240px);
 }
 .quad-item:nth-child(1){ background:var(--t-mint);   color:var(--teal-d); }
 .quad-item:nth-child(2){ background:var(--t-lilac);  color:#7B5AD5; }
@@ -510,6 +512,8 @@ h1,h2,h3,h4{ font-family:var(--display); margin:0; letter-spacing:-.02em; }
 }
 .quad-icon{ font-size:clamp(30px,4vw,58px); line-height:1.1; }
 .quad-label{ font-family:var(--display); font-weight:800; font-size:clamp(15px,2vw,30px); line-height:1.15; }
+/* number-only tiles get her oversized numerals */
+.quad-item.no-icon .quad-label{ font-size:clamp(30px,4.6vw,78px); line-height:1; }
 .quad-scene{ font-size:clamp(16px,2vw,26px); line-height:1.4; color:var(--ink); max-width:960px; margin:0 auto; }
 
 /* objects */
@@ -528,10 +532,10 @@ h1,h2,h3,h4{ font-family:var(--display); margin:0; letter-spacing:-.02em; }
 .caption-scene{ font-size:clamp(56px,12vw,158px); line-height:1.1; letter-spacing:.05em; margin:6px 0; }
 
 /* clues */
-.clues{ display:grid; gap:12px; max-width:900px; margin:0 auto; }
+.clues{ display:grid; gap:10px; max-width:900px; margin:0 auto; }
 .clue{
   display:flex; gap:16px; align-items:flex-start; text-align:left;
-  padding:14px 20px; border-radius:14px; background:var(--paper);
+  padding:12px 20px; border-radius:14px; background:var(--paper);
   box-shadow:0 2px 8px rgba(16,35,63,.05);
   font-size:clamp(14px,1.6vw,21px); line-height:1.45;
 }
@@ -542,7 +546,7 @@ h1,h2,h3,h4{ font-family:var(--display); margin:0; letter-spacing:-.02em; }
 }
 .clue.hidden-clue .clue-n{ background:var(--ink-3); }
 .solution{
-  margin-top:22px; padding:18px 24px; border-radius:16px;
+  margin-top:14px; padding:18px 24px; border-radius:16px;
   background:var(--moss); color:#fff;
   font-size:clamp(15px,1.8vw,23px); line-height:1.45; font-weight:700;
 }
@@ -587,6 +591,8 @@ h1,h2,h3,h4{ font-family:var(--display); margin:0; letter-spacing:-.02em; }
   border-radius:50%; overflow:hidden; background:var(--t-mint);
   display:grid; place-items:center; box-shadow:0 10px 30px rgba(16,35,63,.12);
 }
+.zoom-frame.revealed{ width:min(32vh,270px); height:min(32vh,270px); }
+.zoom-frame.revealed .zoom-emoji{ font-size:min(24vh,200px); }
 .zoom-emoji{ font-size:min(34vh,290px); line-height:1; transition:transform .5s cubic-bezier(.4,0,.2,1); }
 .zoom-steps{ margin-top:16px; font-size:clamp(11px,1.1vw,14px); color:var(--ink-3); letter-spacing:.12em; text-transform:uppercase; font-weight:800; }
 
@@ -602,7 +608,8 @@ h1,h2,h3,h4{ font-family:var(--display); margin:0; letter-spacing:-.02em; }
 .preview .duel-label{ font-size:9px; padding:5px 8px; border-radius:7px; margin-top:-11px; }
 .preview .duel-or{ width:32px; height:32px; font-size:10px; }
 .preview .quad{ gap:7px; }
-.preview .quad-item{ padding:11px 5px; border-radius:10px; gap:4px; }
+.preview .quad-item{ padding:11px 5px; border-radius:10px; gap:4px; min-height:56px; }
+.preview .quad-item.no-icon .quad-label{ font-size:20px; }
 .preview .quad-icon{ font-size:21px; } .preview .quad-label{ font-size:12px; }
 .preview .quad-num{ width:15px; height:15px; font-size:9px; top:5px; left:6px; }
 .preview .quad-scene{ font-size:12px; }

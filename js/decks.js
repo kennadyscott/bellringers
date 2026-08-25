@@ -12,6 +12,7 @@
      group        whole | pairs | solo
      situations   which homepage tiles this shows up under
      featured     shows on the homepage carousel
+     hero         this deck carries the format's slide art (one per format)
      prompts      shape depends on FORMATS[format].render
 */
 
@@ -25,6 +26,7 @@ const DECKS = [
   subtitle: "The originals. Impossible choices, instant opinions.",
   minutes: 5, grades: ["35","68"], subjects: [], energy: "medium", group: "whole",
   situations: ["walked-in","talking","switching","finished-early"],
+  hero: true,
   featured: true,
   prompts: [
     { stem: "Would you rather have the ability to", a:{label:"Pause time", icon:"⏸"}, b:{label:"Rewind 10 minutes", icon:"⏪"} },
@@ -86,6 +88,7 @@ const DECKS = [
   subtitle: "Students give incorrect answers to silly questions. Hilarity ensues.",
   minutes: 5, grades: ["k2","35","68"], subjects: [], energy: "high", group: "whole",
   situations: ["walked-in","need-energy","talking","finished-early"],
+  hero: true,
   featured: true,
   prompts: [
     { stem: "Wrong answers only.", big: "What is the moon actually made of?" },
@@ -127,6 +130,7 @@ const DECKS = [
   subtitle: "Find the item that doesn't belong and explain why. Multiple answers can be correct.",
   minutes: 5, grades: ["k2","35","68"], subjects: [], energy: "low", group: "whole",
   situations: ["walked-in","thinking","switching","too-much"],
+  hero: true,
   featured: true,
   prompts: [
     { stem: "Which one doesn't belong?", items: [ {label:"Bicycle",icon:"🚲"}, {label:"Canoe",icon:"🛶"}, {label:"Skateboard",icon:"🛹"}, {label:"Bus",icon:"🚌"} ] },
@@ -243,6 +247,7 @@ const DECKS = [
   subtitle: "Nobody knows the answer. Everybody has to produce a number anyway.",
   minutes: 5, grades: ["35","68"], subjects: ["math","science"], energy: "low", group: "whole",
   situations: ["thinking","too-much","review","walked-in"],
+  hero: true,
   prompts: [
     { stem: "Estimate it.", big: "How many ping-pong balls would fit inside this classroom?", answer: "A typical classroom holds roughly 900,000 — but the number is not the point. Ask how they got there.", note: "Best path: estimate the room in feet, convert to cubic inches, divide by a ping-pong ball's volume." },
     { stem: "Estimate it.", big: "How many times does your heart beat in a school day?", answer: "About 30,000 — roughly 80 beats a minute × 60 × 7 hours." },
@@ -411,6 +416,7 @@ const DECKS = [
   subtitle: "Five rapid questions. You get to answer too — and you should lose one on purpose.",
   minutes: 5, grades: ["35","68"], subjects: ["math"], energy: "high", group: "whole",
   situations: ["review","need-energy","walked-in"],
+  hero: true,
   prompts: [
     { stem: "Round 1 — Multiplication", questions: [
       { q: "7 × 8", a: "56" }, { q: "12 × 12", a: "144" }, { q: "9 × 6", a: "54" },
@@ -469,6 +475,7 @@ const DECKS = [
   subtitle: "Zoomed way in. Zoom out every 15 seconds until someone shouts it.",
   minutes: 2, grades: ["k2","35","68"], subjects: [], energy: "medium", group: "whole",
   situations: ["switching","walked-in","too-much","finished-early"],
+  hero: true,
   prompts: [
     { icon: "🦒", answer: "A giraffe" }, { icon: "🌻", answer: "A sunflower" },
     { icon: "🎺", answer: "A trumpet" }, { icon: "🐙", answer: "An octopus" },
