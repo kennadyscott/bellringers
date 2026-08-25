@@ -434,8 +434,8 @@ function cardHTML(deck){
   const on = favorites.has(deck.id);
   return `
     <div class="card" data-deck="${deck.id}" role="button" tabindex="0">
-      <div class="card-art art-${f.tint}">
-        ${f.icon}
+      <div class="card-art art-${f.tint}${f.art ? " has-img" : ""}">
+        ${f.art ? `<img class="card-img" src="${f.art}" alt="" loading="lazy" decoding="async">` : f.icon}
         <button class="fav ${on ? "on" : ""}" data-fav="${deck.id}" aria-label="Favorite">${on ? "♥" : "♡"}</button>
       </div>
       <div class="card-body">

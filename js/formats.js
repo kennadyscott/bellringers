@@ -1,6 +1,8 @@
 /* Bellringers — formats, situations, and filter vocabulary.
 
    A FORMAT is a repeatable mechanic (Pick a Side, Odd One Out…).
+   `art` is an optional 16:9 slide thumbnail for the cards; formats without
+   one fall back to the tinted emoji tile, so adding art is purely additive.
    A DECK is one themed set of prompts inside a format (see decks.js).
    A PROMPT is a single Bellringer. Formats render; decks supply.
 
@@ -21,6 +23,7 @@ const FORMATS = {
     name: "Pick a Side",
     icon: "⚖️",
     tint: "teal",
+    art: "img/pick-a-side.webp",
     render: "duel",
     blurb: "Students choose a side and defend their choice. Great for quick debates.",
     how: [
@@ -37,6 +40,7 @@ const FORMATS = {
     name: "Wrong Answers Only",
     icon: "🙃",
     tint: "coral",
+    art: "img/wrong-answers-only.webp",
     render: "statement",
     blurb: "Students give incorrect answers to silly questions. Hilarity ensues.",
     how: [
@@ -53,6 +57,7 @@ const FORMATS = {
     name: "Odd One Out",
     icon: "🔺",
     tint: "moss",
+    art: "img/odd-one-out.webp",
     render: "quad",
     blurb: "Four things appear. Students argue which one doesn't belong — and more than one answer can be right.",
     how: [
@@ -101,6 +106,7 @@ const FORMATS = {
     name: "Estimate It",
     icon: "📏",
     tint: "sky",
+    art: "img/estimate-it.webp",
     render: "reveal",
     blurb: "An impossible-sounding number question. Students reason their way to a guess.",
     how: [
@@ -181,6 +187,7 @@ const FORMATS = {
     name: "Beat the Teacher",
     icon: "⚡",
     tint: "amber",
+    art: "img/beat-the-teacher.webp",
     render: "rapid",
     blurb: "Five rapid questions. Students race you — and they will absolutely try.",
     how: [
@@ -197,6 +204,7 @@ const FORMATS = {
     name: "Mystery Zoom",
     icon: "🔬",
     tint: "sky",
+    art: "img/mystery-zoom.webp",
     render: "zoom",
     blurb: "Zoomed way in. Zoom out every few seconds until someone shouts it.",
     how: [
