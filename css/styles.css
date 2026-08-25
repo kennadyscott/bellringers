@@ -34,8 +34,8 @@
   --shadow: 0 1px 2px rgba(16,35,63,.05), 0 8px 24px rgba(16,35,63,.06);
   --shadow-lg: 0 24px 60px rgba(16,35,63,.16);
 
-  --display: "Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
-  --body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --display: "Gabarito", "Trebuchet MS", system-ui, sans-serif;
+  --body: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 *,*::before,*::after{ box-sizing:border-box; }
