@@ -1,8 +1,10 @@
 /* Bellringers — formats, situations, and filter vocabulary.
 
    A FORMAT is a repeatable mechanic (Pick a Side, Odd One Out…).
-   `art` is an optional 16:9 slide thumbnail for the cards; formats without
-   one fall back to the tinted emoji tile, so adding art is purely additive.
+   `art`       optional 16:9 slide thumbnail; shown only on the deck flagged
+               `hero: true`, so subject editions don't repeat the same picture.
+   `band`      tint behind the prompt on the board (mint|lilac|butter|blush|sky|pink)
+   `direction` the line in the pill at the bottom of the board. <em> underlines it.
    A DECK is one themed set of prompts inside a format (see decks.js).
    A PROMPT is a single Bellringer. Formats render; decks supply.
 
@@ -25,6 +27,8 @@ const FORMATS = {
     tint: "teal",
     art: "img/pick-a-side.webp",
     render: "duel",
+    band: "mint",
+    direction: "Pick one. Be ready to <em>defend your answer</em>.",
     blurb: "Students choose a side and defend their choice. Great for quick debates.",
     how: [
       "Read both options out loud. Do not editorialize — the second you have a favorite, half the room takes it.",
@@ -42,6 +46,8 @@ const FORMATS = {
     tint: "coral",
     art: "img/wrong-answers-only.webp",
     render: "statement",
+    band: "lilac",
+    direction: "Give the most <em>ridiculous wrong answer</em> you can think of.",
     blurb: "Students give incorrect answers to silly questions. Hilarity ensues.",
     how: [
       "Post the question. Say the rule: every answer must be confidently, gloriously wrong.",
@@ -59,6 +65,8 @@ const FORMATS = {
     tint: "moss",
     art: "img/odd-one-out.webp",
     render: "quad",
+    band: "mint",
+    direction: "Choose one and defend your answer. <em>More than one answer can work</em>.",
     blurb: "Four things appear. Students argue which one doesn't belong — and more than one answer can be right.",
     how: [
       "Show all four. Silent look for 20 seconds — no hands yet.",
@@ -75,6 +83,8 @@ const FORMATS = {
     icon: "🗳️",
     tint: "plum",
     render: "quad",
+    band: "lilac",
+    direction: "Vote one out. It's gone <em>forever, for everybody</em>.",
     blurb: "Four things appear on screen. The class has to eliminate one — permanently.",
     how: [
       "Read the four. Establish the stakes: whatever they pick is gone forever, for everyone.",
@@ -91,6 +101,8 @@ const FORMATS = {
     icon: "🎤",
     tint: "amber",
     render: "statement",
+    band: "butter",
+    direction: "You don't have to believe it. Just <em>make us believe it</em>.",
     blurb: "An absurd claim appears. Students have to argue for it convincingly.",
     how: [
       "Post the claim. Make clear nobody has to believe it — they just have to sell it.",
@@ -108,6 +120,8 @@ const FORMATS = {
     tint: "sky",
     art: "img/estimate-it.webp",
     render: "reveal",
+    band: "mint",
+    direction: "Make your best estimate. Then <em>explain your thinking</em>.",
     blurb: "An impossible-sounding number question. Students reason their way to a guess.",
     how: [
       "Read the question. Ban “I don't know” — everyone must produce a number.",
@@ -124,6 +138,8 @@ const FORMATS = {
     icon: "🔍",
     tint: "plum",
     render: "clues",
+    band: "lilac",
+    direction: "Every clue is true. <em>Nothing here is a trick</em>.",
     blurb: "A tiny mystery students crack using three clues.",
     how: [
       "Read the scenario. Ask what they notice before you give any clue.",
@@ -140,6 +156,8 @@ const FORMATS = {
     icon: "📖",
     tint: "teal",
     render: "objects",
+    band: "mint",
+    direction: "All three objects. <em>Sixty seconds</em>. Go.",
     blurb: "Three random objects appear. Build a story that contains all three.",
     how: [
       "Show the three objects. Start a 60-second timer immediately.",
@@ -156,6 +174,8 @@ const FORMATS = {
     icon: "✏️",
     tint: "blush",
     render: "caption",
+    band: "pink",
+    direction: "One line only. <em>Make somebody laugh</em>.",
     blurb: "A strange scene appears. Students write the best caption. Share and vote.",
     how: [
       "Show the scene. Give a 90-second writing window.",
@@ -172,6 +192,8 @@ const FORMATS = {
     icon: "🧭",
     tint: "moss",
     render: "quad",
+    band: "mint",
+    direction: "Pick a number. Be ready to <em>defend it</em>.",
     blurb: "A scenario with four possible decisions. Choose, defend, then find out.",
     how: [
       "Read the scenario. Read all four options before anyone commits.",
@@ -189,6 +211,8 @@ const FORMATS = {
     tint: "amber",
     art: "img/beat-the-teacher.webp",
     render: "rapid",
+    band: "butter",
+    direction: "Work fast. <em>No calculators</em>.",
     blurb: "Five rapid questions. Students race you — and they will absolutely try.",
     how: [
       "Announce the score: class 0, you 0. Say you have never lost. This is a lie and they know it.",
@@ -206,6 +230,8 @@ const FORMATS = {
     tint: "sky",
     art: "img/mystery-zoom.webp",
     render: "zoom",
+    band: "mint",
+    direction: "Zoom out every 15 seconds <em>until someone guesses it</em>.",
     blurb: "Zoomed way in. Zoom out every few seconds until someone shouts it.",
     how: [
       "Start fully zoomed in. Take guesses immediately, even absurd ones.",

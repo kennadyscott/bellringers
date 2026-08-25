@@ -65,30 +65,32 @@ function maxReveal(deck, prompt){
 
 const norm = t => String(t || "").toLowerCase().replace(/[.:!?]+$/, "").trim();
 
+const DASH = `<svg class="stage-dash" viewBox="0 0 30 34" fill="none" aria-hidden="true">
+  <path d="M26 4 6 10M28 17H8M26 30 6 24" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>`;
+
 function renderStage(deck, prompt, rv = 0){
   const f = FORMATS[deck.format];
-  /* the kicker already says the format name — don't say it twice */
+  /* the title already says the format name — don't say it twice in the band */
   const stemLine = t => (t && norm(t) !== norm(f.name)) ? `<div class="stage-stem">${esc(t)}</div>` : "";
-  const kicker = `<div class="stage-kicker"><span class="k-icon">${f.icon}</span>${esc(f.name)}</div>`;
-  let body = "";
+  let band = "", rest = "";
 
   switch (f.render){
 
     case "duel":
-      body = `
-        <div class="stage-big">${esc(prompt.stem)} ${esc(lowerFirst(prompt.a.label))} or ${esc(lowerFirst(prompt.b.label))}?</div>
+      band = `<div class="stage-big">${esc(prompt.stem)} ${esc(lowerFirst(prompt.a.label))} or ${esc(lowerFirst(prompt.b.label))}?</div>`;
+      rest = `
         <div class="duel">
-          <div class="duel-side"><div class="duel-orb a">${prompt.a.icon}</div><div class="duel-label">${esc(prompt.a.label)}</div></div>
+          <div class="duel-side a"><div class="duel-orb a">${prompt.a.icon}</div><div class="duel-label">${esc(prompt.a.label)}</div></div>
           <div class="duel-or">OR</div>
-          <div class="duel-side"><div class="duel-orb b">${prompt.b.icon}</div><div class="duel-label">${esc(prompt.b.label)}</div></div>
+          <div class="duel-side b"><div class="duel-orb b">${prompt.b.icon}</div><div class="duel-label">${esc(prompt.b.label)}</div></div>
         </div>`;
       break;
 
     case "quad":
-      body = `
-        ${prompt.scene
-          ? `${stemLine(prompt.stem)}<div class="quad-scene">${esc(prompt.scene)}</div>`
-          : `<div class="stage-big">${esc(prompt.stem || "")}</div>`}
+      band = prompt.scene
+        ? `${stemLine(prompt.stem)}<div class="quad-scene">${esc(prompt.scene)}</div>`
+        : `<div class="stage-big">${esc(prompt.stem || "")}</div>`;
+      rest = `
         <div class="quad">
           ${prompt.items.map((it, i) => `
             <div class="quad-item">
@@ -101,24 +103,20 @@ function renderStage(deck, prompt, rv = 0){
       break;
 
     case "statement":
-      body = `
-        ${stemLine(prompt.stem)}
-        <div class="stage-big">${esc(prompt.big)}</div>
-        ${prompt.sub ? `<div class="stage-sub">${esc(prompt.sub)}</div>` : ""}`;
+      band = `${stemLine(prompt.stem)}<div class="stage-big">${esc(prompt.big)}</div>`;
+      rest = prompt.sub ? `<div class="stage-sub">${esc(prompt.sub)}</div>` : "";
       break;
 
     case "reveal":
-      body = `
-        ${stemLine(prompt.stem)}
-        <div class="stage-big">${esc(prompt.big)}</div>
-        ${rv >= 1
-          ? `<div class="answer-box">${esc(prompt.answer)}</div>${prompt.note ? `<div class="answer-note">${esc(prompt.note)}</div>` : ""}`
-          : `<div class="stage-sub">Everyone writes a number. No passes.</div>`}`;
+      band = `<div class="stage-big">${esc(prompt.big)}</div>`;
+      rest = rv >= 1
+        ? `<div class="answer-box">${esc(prompt.answer)}</div>${prompt.note ? `<div class="answer-note">${esc(prompt.note)}</div>` : ""}`
+        : `<div class="stage-sub">Everyone writes a number. No passes.</div>`;
       break;
 
     case "clues":
-      body = `
-        <div class="stage-big">${esc(prompt.big)}</div>
+      band = `<div class="stage-big">${esc(prompt.big)}</div>`;
+      rest = `
         <div class="clues">
           ${prompt.clues.map((c, i) => `
             <div class="clue ${rv >= i + 1 ? "" : "hidden-clue"}">
@@ -130,8 +128,8 @@ function renderStage(deck, prompt, rv = 0){
       break;
 
     case "objects":
-      body = `
-        <div class="stage-big">${esc(prompt.stem)}</div>
+      band = `<div class="stage-big">${esc(prompt.stem)}</div>`;
+      rest = `
         <div class="objects">
           ${prompt.items.map(it => `
             <div class="object"><div class="object-icon">${it.icon}</div><div class="object-label">${esc(it.label)}</div></div>`).join("")}
@@ -139,33 +137,32 @@ function renderStage(deck, prompt, rv = 0){
       break;
 
     case "caption":
-      body = `
-        <div class="caption-scene">${prompt.scene}</div>
-        <div class="stage-big">${esc(prompt.stem)}</div>
-        ${prompt.sub ? `<div class="stage-sub">${esc(prompt.sub)}</div>` : ""}`;
+      band = `<div class="stage-big">${esc(prompt.stem)}</div>`;
+      rest = `<div class="caption-scene">${prompt.scene}</div>
+              ${prompt.sub ? `<div class="stage-sub">${esc(prompt.sub)}</div>` : ""}`;
       break;
 
     case "rapid":
-      body = `
-        <div class="stage-big">${esc(prompt.stem)}</div>
+      band = `<div class="stage-stem">${esc(prompt.stem)}</div>
+              <div class="stage-big">Can your class solve all 5 before the teacher does?</div>`;
+      rest = `
         <div class="rapid">
           ${prompt.questions.map((q, i) => {
             const shown = rv >= i + 1;
             const ans   = rv >= i + 2;
             return `<div class="rapid-row ${shown ? "" : "pending"}">
                       <div class="rapid-n">${i + 1}</div>
-                      <div class="rapid-q">${shown ? esc(q.q) : "?????"}</div>
+                      <div class="rapid-q">${shown ? esc(q.q) : "?"}</div>
                       ${ans ? `<div class="rapid-a">${esc(q.a)}</div>` : ""}
                     </div>`;
           }).join("")}
-        </div>
-        ${rv === 0 ? `<div class="stage-sub">Class 0 &nbsp;·&nbsp; Teacher 0</div>` : ""}`;
+        </div>`;
       break;
 
     case "zoom": {
       const scales = [8, 4.2, 2.1, 1, 1];
-      body = `
-        <div class="stage-stem">${rv >= 4 ? "It was…" : "What is this?"}</div>
+      band = `<div class="stage-big">${rv >= 4 ? "It was…" : "What are you looking at?"}</div>`;
+      rest = `
         <div class="zoom-frame"><div class="zoom-emoji" style="transform:scale(${scales[Math.min(rv, 4)]})">${prompt.icon}</div></div>
         ${rv >= 4
           ? `<div class="answer-box">${esc(prompt.answer)}</div>`
@@ -173,7 +170,12 @@ function renderStage(deck, prompt, rv = 0){
       break;
     }
   }
-  return `<div class="stage">${kicker}${body}</div>`;
+
+  return `<div class="stage">
+    <div class="stage-title">${DASH}<span>${esc(f.name)}</span>${DASH.replace('class="stage-dash"', 'class="stage-dash r"')}</div>
+    <div class="stage-band band-${f.band || "mint"}">${band}</div>
+    ${rest}
+  </div>`;
 }
 
 /* ═══════════════════ PLAYER ═══════════════════ */
@@ -219,8 +221,13 @@ function closePlayer(){
 
 function paintPlayer(){
   const deck = P.deck, prompt = deck.prompts[P.idx];
+  const f = FORMATS[deck.format];
   $("#playerStage").innerHTML = renderStage(deck, prompt, P.rv);
   $("#playerTitle").textContent = `${deck.title} · ${P.idx + 1} of ${deck.prompts.length}`;
+  $("#playerDirection").innerHTML = f.direction || "";
+  $("#playerChips").innerHTML =
+    `<span class="pchip pchip-time">🕐 ${deck.minutes} min</span>` +
+    `<span class="pchip pchip-energy e-${deck.energy}">⚡ ${deck.energy[0].toUpperCase() + deck.energy.slice(1)} energy</span>`;
 
   const mr = maxReveal(deck, prompt);
   const btn = $("#btnReveal");
@@ -432,10 +439,11 @@ function buildSequence(totalMin, opts = {}){
 function cardHTML(deck){
   const f = FORMATS[deck.format];
   const on = favorites.has(deck.id);
+  const showArt = !!(f.art && deck.hero);
   return `
     <div class="card" data-deck="${deck.id}" role="button" tabindex="0">
-      <div class="card-art art-${f.tint}${f.art ? " has-img" : ""}">
-        ${f.art ? `<img class="card-img" src="${f.art}" alt="" loading="lazy" decoding="async">` : f.icon}
+      <div class="card-art art-${f.tint}${showArt ? " has-img" : ""}">
+        ${showArt ? `<img class="card-img" src="${f.art}" alt="" loading="lazy" decoding="async">` : f.icon}
         <button class="fav ${on ? "on" : ""}" data-fav="${deck.id}" aria-label="Favorite">${on ? "♥" : "♡"}</button>
       </div>
       <div class="card-body">
@@ -525,7 +533,7 @@ function viewHome(){
       <div class="fav-card">
         <div>
           <h3>⭐ Save your favorites</h3>
-          <p>Favorites and custom sequences save right here in this browser. No account, no email, no nonsense.</p>
+          <p>Favorites and custom sequences save right here in this browser. No account required, no email, no nonsense.</p>
           <a class="btn btn-teal" href="#/favorites">See favorites${favorites.size ? ` (${favorites.size})` : ""}</a>
         </div>
         <div class="fav-card-icon">🖍️</div>
